@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tessr WebAR Stock Screener</title>
+    <meta name="theme-color" content="skyblue" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <!-- Modified version of A-Frame v1.0.3 to work with WebXR AR DOM Overlay -->
+    <script src="dist/aframe/aframe-master.js"></script>
+
+    <!-- Modified version of aframe-text-geometry-component to use local font JSON-->
+    <script src="dist/aframe/aframe-text-geometry-component.min.js"></script>
+
+    <!-- File that houses all necessary A-Frame components -->
+    <script src="dist/aframeComponents.js"></script>
+
+    <!-- Primary JS file that imports functions from dataPoints.js and actions.js  -->
+    <script type="module" src="dist/sceneData.js"></script>
+  </head>
+  <body>
+    <!-- DOM Overlay that will contain the Search Menu -->
+    <article class="overlay">
+      <section class="menu">
+        <section class="menu-row">
+          <section class="menu-section">
+            <!-- Symbol input with "TSLA" as default value, remove after connecting to stock Data API -->
+            <label class="menu-label" for="symbol-input">Symbol: </label>
+            <input
+              class="menu-input"
+              value="TSLA"
+              id="symbol-input"
+              type="text"
+            />
+          </section>
+          <section class="menu-section">
+            <!-- Range input with "5 Days" & "1 Month" options -->
+            <!-- API offers larger ranges but they will quickly use up your monthly free tier limit -->
+            <label class="menu-label" for="range-input">Range: </label>
+            <select class="menu-dropdown" id="range-input">
+              <option key="5d" value="5d" selected="selected">
+                5 Days
+              </option>
+              <option key="1m" value="1m">
+                1 Month
+              </option>
+            </select>
+          </section>
+          <section class="menu-button-container">
+            <section class="menu-section">
+              <button
+                id="search-button"
+                class="menu-button"
+                onClick="searchData()"
+              >
+                Search
+              </button>
+            </section>
+            <section class="menu-section">
+              <button
+                id="reset-button"
+                class="menu-button"
+                onClick="resetScene()"
+              >
+                Reset
+              </button>
+            </section>
+          </section>
+          <!-- Custom Enter VR button included to hide via CSS -->
+          <div id="enter-vr-button"></div>
+          <!-- Custom Enter and Exit AR buttons -->
+          <button class="menu-button" id="enter-ar-button">
+            Enter AR
+          </button>
+          <button class="menu-button" id="exit-ar-button">
+            Exit AR
+          </button>
+        </section>
+      </section>
+    </article>
+    <!-- A-Frame Scene with AR Mode components-->
+    <a-scene
+      id="scene"
+      background="color: skyblue"
+      vr-mode-ui="enterVRButton: #enter-vr-button; enterARButton: #enter-ar-button"
+      exit-ar-button
+      ar-mode-css
+    >
+      <!-- Scene Camera -->
+      <a-camera position="0 1.15 0"></a-camera>
+
+      <!-- Scene Lights -->
+      <a-light id="main-light" type="ambient"></a-light>
+      <a-light
+        type="directional"
+        id="stage-text-light"
+        target="#stage-text"
+        position="5 3 0"
+      ></a-light>
+
+      <!-- Scene Stage that will house the Stage Text and all data-based entities -->
+      <a-entity id="stage" position="0 0.75 -0.5" scale="0.25 0.25 0.25">
+        <a-entity id="stage-text" app-text position="-1 1.75 -1"></a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
