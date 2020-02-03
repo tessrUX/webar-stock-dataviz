@@ -4,7 +4,7 @@
 
 This project was made to experiment with A-Frame's new AR mode in Chrome via the WebXR Device API.
 
-Try out the demo here:
+Try out the demo here: https://webar-stock-dataviz.netlify.com/
 
 You will need to enable the following experimental chrome flags (currently supported on ARCore-compatible Android devices in Chrome 79 or later):
 
@@ -14,7 +14,7 @@ You will need to enable the following experimental chrome flags (currently suppo
 
 ### Project Setup
 
-For proper development environment setup, please check out the [companion article]() on Medium.
+For proper development environment setup, please check out the [companion article](http://bit.ly/webar-stock-dataviz-pt1) on Medium.
 
 I will be releasing a second article soon giving a detailed runthrough of how the project was made.
 
